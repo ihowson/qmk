@@ -21,16 +21,14 @@ extern uint8_t is_master;
 
 // enum layer_names {
 #define _QWERTY 0
-// #define _LOWER 1
-#define _RAISE 2
+#define _RAISE 1
 // #define _ADJUST 3
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  RAISE,
-  // LOWER,
+// enum custom_keycodes {
+  // QWERTY = SAFE_RANGE,
+  // RAISE,
   // ADJUST,
-};
+// };
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,7 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {  KC_LSFT, KC_NO,      KC_Z,      KC_X,     KC_C,   KC_V,               KC_B, _______},
   { KC_LCTRL, MO(_RAISE), KC_LALT,   KC_NO, KC_LGUI,   KC_NO, SGUI(KC_LBRACKET), _______},
   {  _______,    _______, _______, _______, _______, _______,           _______, _______},
-//   { KC_LCTRL, RGB_MODE_FORWARD, KC_LALT, KC_NO,  KC_LGUI, KC_NO, SGUI(KC_LBRACKET)},
 
   // RIGHT HALF
   // FIXME: put the right keymap here
@@ -71,29 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {           _______,              KC_N,            KC_M,      KC_COMMA,    KC_DOT,    KC_SLASH,   KC_RSHIFT, KC_UP},  // TODO: first col here is FLIP
   { SGUI(KC_RBRACKET),          KC_SPACE,         KC_RGUI,       KC_RALT,  KC_RCTRL,     KC_LEFT,     KC_DOWN, KC_RIGHT},
 },
-#if 0
-/* LOWER
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-[_LOWER] = LAYOUT( \
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,\
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-  KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD, \
-  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-                             _______, _______, _______, _______, _______,  _______, _______, _______\
-),
-#endif
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -152,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 };
 
-int RGB_current_mode;
+// int RGB_current_mode;
 
 void matrix_init_user(void) {
   /*
@@ -160,7 +134,7 @@ void matrix_init_user(void) {
         RGB_current_mode = rgblight_config.mode;
         rgblight_enable(); // Ian: switch on RGB
     #endif
-    */
+    // */
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
@@ -174,8 +148,8 @@ void matrix_init_user(void) {
 const char *read_layer_state(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
+// const char *read_keylog(void);
+// const char *read_keylogs(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -183,15 +157,15 @@ const char *read_keylogs(void);
 // const char *read_timelog(void);
 
 void matrix_scan_user(void) {
-   iota_gfx_task();
+    iota_gfx_task();
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
+    // matrix_write_ln(matrix, read_keylog());
+    // matrix_write_ln(matrix, read_keylogs());
     //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     //matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
@@ -219,7 +193,7 @@ void iota_gfx_task_user(void) {
 
 
 /*
-not working
+// not working
 const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, RGBLED_NUM, HSV_RED}       // Light everything red
 );

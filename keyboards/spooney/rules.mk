@@ -20,6 +20,7 @@ MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = no       # Audio control and System control
 # CONSOLE_ENABLE = no         # Console for debug
 # CONSOLE_ENABLE = yes         # Console for debug
+OLED_DRIVER_ENABLE = yes
 COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -37,7 +38,6 @@ CUSTOM_MATRIX = yes
 
 SRC += i2c.c
 SRC += serial.c
-SRC += ssd1306.c
 
 # A workaround until #7089 is merged.
 #   serial.c must not be compiled with the -lto option.

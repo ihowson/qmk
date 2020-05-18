@@ -1,3 +1,5 @@
+#if 0
+
 #include <stdio.h>
 #include "spooney.h"
 
@@ -43,3 +45,5 @@ const char *read_keylog(void) {
 const char *read_keylogs(void) {
   return keylogs_str;
 }
+
+#endif

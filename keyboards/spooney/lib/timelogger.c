@@ -1,3 +1,5 @@
+#if 0
+
 #include <stdio.h>
 #include "spooney.h"
 
@@ -14,3 +16,5 @@ void set_timelog(void) {
 const char *read_timelog(void) {
   return timelog_str;
 }
+
+#endif

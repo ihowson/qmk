@@ -56,6 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 4    // Number of LEDs
 
+#define RGBLIGHT_LIMIT_VAL 255
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

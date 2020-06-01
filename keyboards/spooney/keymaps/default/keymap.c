@@ -24,11 +24,11 @@ extern uint8_t is_master;
 #define _RAISE 1
 // #define _ADJUST 3
 
-// enum custom_keycodes {
-//   QWERTY = SAFE_RANGE,
+enum custom_keycodes {
+  FLIP = SAFE_RANGE,
 //   RAISE,
 //   // ADJUST,
-// };
+};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,55 +50,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = {
   // LEFT HALF
-  { KC_GRAVE, KC_1,       KC_2,      KC_3,     KC_4,   KC_5,               KC_6, _______},
-  {   KC_TAB, KC_Q,       KC_W,      KC_E,     KC_R,   KC_T,              KC_NO, _______},
-  {   KC_ESC, KC_A,       KC_S,      KC_D,     KC_F,   KC_G,              KC_NO, _______},
-  {  KC_LSFT, KC_NO,      KC_Z,      KC_X,     KC_C,   KC_V,               KC_B, _______},
-  { KC_LCTRL, MO(_RAISE), KC_LALT,   KC_NO, KC_LGUI,   KC_NO, SGUI(KC_LBRACKET), _______},
-  {  _______,    _______, _______, _______, _______, _______,           _______, _______},
+  {   KC_GRAVE,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6, _______},
+  {     KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______},
+  {     KC_ESC,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, _______},
+  {    KC_LSFT,  _______,    KC_Z,    KC_X,    KC_C,    KC_V,       KC_B, _______},
+  {   KC_LCTRL, KC_LCTRL, KC_LALT, _______, KC_LGUI, _______, MO(_RAISE), _______},
+  {    _______,  _______, _______, _______, _______, _______,    _______, _______},
 
   // RIGHT HALF
   // FIXME: put the right keymap here
   // FIXME: you changed the row/col count on right side
   // FIXME: this needs more columns, but you might just use the spare line on the left and use the same row/col mapping on both
-  {           _______, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE,    KC_END,   KC_PGDOWN,     _______, _______},
-  {              KC_7,              KC_8,            KC_9,          KC_0,  KC_MINUS,    KC_EQUAL,   KC_BSPACE, KC_HOME},
-  {              KC_Y,              KC_U,            KC_I,          KC_O,      KC_P, KC_LBRACKET, KC_RBRACKET, KC_BSLASH},
-  {              KC_H,              KC_J,            KC_K,          KC_L, KC_SCOLON,    KC_QUOTE,    KC_ENTER, KC_PGUP},
-  {           _______,              KC_N,            KC_M,      KC_COMMA,    KC_DOT,    KC_SLASH,   KC_RSHIFT, KC_UP},  // TODO: first col here is FLIP
-  { SGUI(KC_RBRACKET),          KC_SPACE,         KC_RGUI,       KC_RALT,  KC_RCTRL,     KC_LEFT,     KC_DOWN, KC_RIGHT},
+  {   _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE,    KC_END,   KC_PGDOWN,     _______,   _______},
+  {      KC_7,        KC_8,      KC_9,     KC_0,  KC_MINUS,    KC_EQUAL,   KC_BSPACE,   KC_HOME},
+  {      KC_Y,        KC_U,      KC_I,     KC_O,      KC_P, KC_LBRACKET, KC_RBRACKET, KC_BSLASH},
+  {      KC_H,        KC_J,      KC_K,     KC_L, KC_SCOLON,    KC_QUOTE,    KC_ENTER,   KC_PGUP},
+  {      FLIP,        KC_N,      KC_M, KC_COMMA,    KC_DOT,    KC_SLASH,   KC_RSHIFT,     KC_UP},  // TODO: first col here is FLIP
+  { KC_BSPACE,    KC_SPACE,   KC_RGUI,  KC_RALT,  KC_RCTRL,     KC_LEFT,     KC_DOWN,  KC_RIGHT},
 },
-/* RAISE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
 
 [_RAISE] = {
     // LEFT HAND
-    {   RESET,   KC_F1,      KC_F2,            KC_F3,       KC_F4,   KC_F5,             KC_F6, _______},
-    { _______, _______,    _______,         KC_MS_UP,     _______, _______,           _______, _______},
-    { _______, _______, KC_MS_LEFT,       KC_MS_DOWN, KC_MS_RIGHT, RGB_HUI,           _______, _______},
-    { _______, _______,    RGB_TOG, RGB_MODE_FORWARD,     RGB_HUI, RGB_SAI,           RGB_VAI, _______},
-    { _______, _______, KC_MS_BTN2,          _______,  KC_MS_BTN1, _______, SGUI(KC_RBRACKET), _______},
-    { _______, _______,    _______,          _______,     _______, _______,           _______, _______},
+    {   RESET,      KC_F1,      KC_F2,            KC_F3,       KC_F4,       KC_F5,             KC_F6, _______},
+    { _______,       KC_1,       KC_2,             KC_3,        KC_4,        KC_5,           _______, _______},
+    { _______,    _______, KC_MS_LEFT,         KC_MS_UP,  KC_MS_DOWN, KC_MS_RIGHT,           _______, _______},
+    { _______,    _______,    RGB_TOG, RGB_MODE_FORWARD,     RGB_HUI,     RGB_SAI,           RGB_VAI, _______},
+    { _______,    _______,    _______,          _______,     _______,     _______, SGUI(KC_RBRACKET), _______},
+    { _______,    _______,    _______,          _______,     _______,     _______,           _______, _______},
 
     // RIGHT HAND
-    { _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, _______, _______,   _______, _______},
-    {   KC_F7,               KC_F8,               KC_F9,              KC_F10,  KC_F11,  KC_F12, KC_DELETE, _______},
-    { _______,             _______,               KC_UP,             _______, _______, _______,   _______, _______},
-    { KC_LEFT,             KC_DOWN,               KC_UP,            KC_RIGHT, _______, _______,   _______, _______},
-    { _______,             _______,             _______,             _______, _______, _______,   _______, _______},
-    { _______,             _______,             _______,             _______, _______, _______,   _______, _______},
+    { _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,   _______,     _______,   _______,  _______},
+    {   KC_F7,               KC_F8,               KC_F9,              KC_F10,    KC_F11,      KC_F12, KC_DELETE,  _______},
+    {    KC_6,                KC_7,                KC_8,                KC_9,      KC_0, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
+    { KC_LEFT,             KC_DOWN,               KC_UP,            KC_RIGHT,   KC_PGUP,    KC_EQUAL,   _______,  _______},
+    { _______,             _______,   SGUI(KC_LBRACKET),   SGUI(KC_RBRACKET),   _______,   KC_PGDOWN,   _______,  _______},
+    { _______,          KC_MS_BTN1,          KC_MS_BTN2,             _______,   _______,     _______,   _______,  _______},
 },
 
 #if 0
@@ -147,6 +133,11 @@ void matrix_init_user(void) {
 void oled_task_user(void) {
   if (is_master) {
     oled_write_ln(read_layer_state(), 0);
+    // oled_write_ln("\n", 0);
+
+    char buf[32];
+    sprintf(buf, "\n%d WPM", get_current_wpm());
+    oled_write_ln(buf, 0);
   } else {
     oled_write(read_logo(), 0);
   }
@@ -154,19 +145,21 @@ void oled_task_user(void) {
 #endif//SSD1306OLED
 
 
-/*
+// /*
 // not working
-const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+// TODO: not sure what this layer is for
+const rgblight_segment_t PROGMEM my_dummy_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+
     {0, RGBLED_NUM, HSV_RED}       // Light everything red
 );
 
-const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_GREEN}
+const rgblight_segment_t PROGMEM my_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 4, HSV_CYAN}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_raise_layer,
-    my_game_layer
+    my_dummy_layer,
+    my_raise_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -177,12 +170,19 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Both layers will light up if both kb layers are active
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-    return state;
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));   // will probably do nothing, but let's try it    return state;
 }
 
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case FLIP:
+            if (record->event.pressed) { // TODO: should be on release; you could space-cadet this as you'll never hold it
+                // when keycode QMKBEST is pressed
+            } else {
+                // when keycode QMKBEST is released
+                SEND_STRING(SS_LGUI("kj"));
+            }
+            break;
+    }
     return true;
 }
-*/

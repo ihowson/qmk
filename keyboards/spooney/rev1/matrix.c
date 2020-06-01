@@ -49,8 +49,8 @@ static const int ROWS_PER_HAND = MATRIX_ROWS/2;
 static uint8_t error_count = 0;
 uint8_t is_master = 0 ;
 
-static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -113,6 +113,17 @@ void matrix_init(void)
     }
 
     is_master = has_usb();
+
+    // IAN HACK: lily58 didn't support different pinouts for left/right, so hack it in here
+    if (!is_master) {
+        uint8_t rows[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
+        memcpy(row_pins, rows, MATRIX_ROWS);
+
+        uint8_t cols[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
+        memcpy(col_pins, cols, MATRIX_COLS);
+        // row_pins = MATRIX_ROW_PINS_RIGHT;
+        // col_pins = MATRIX_COL_PINS_RIGHT;
+    }
 
     matrix_init_quantum();
 }

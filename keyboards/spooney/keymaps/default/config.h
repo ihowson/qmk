@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// FIXME: this could be enabled; you haven't soldered it onto your left half yet
 #define SSD1306OLED
 
 #define USE_SERIAL_PD2
@@ -39,15 +38,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 100
 
 #undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
 // #define RGBLED_NUM 27
-#define RGBLED_NUM 4
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLED_NUM 9
+#define RGBLED_SPLIT {8, 1}
+// #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
 #define RGBLIGHT_LAYERS
+
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_SPLIT
 
 // from https://www.reddit.com/r/olkb/comments/72u8ou/qmk_mouse_keys_rock/
 #define MOUSEKEY_INTERVAL 16
@@ -55,13 +62,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
-
-
-
-// Underglow
-/*
-#undef RGBLED_NUM
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-*/

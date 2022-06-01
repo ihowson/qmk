@@ -92,6 +92,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint32_t matrix_timer      = 0;
 static uint32_t matrix_scan_count = 0;
 
+uint32_t last_matrix_scan_count = 237;
+
 void matrix_scan_perf_task(void) {
     matrix_scan_count++;
 
@@ -99,6 +101,7 @@ void matrix_scan_perf_task(void) {
     if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
         dprintf("matrix scan frequency: %d\n", matrix_scan_count);
 
+        last_matrix_scan_count = matrix_scan_count;
         matrix_timer      = timer_now;
         matrix_scan_count = 0;
     }

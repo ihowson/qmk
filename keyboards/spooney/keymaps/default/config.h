@@ -30,31 +30,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SSD1306OLED
 
+#define DEBUG_MATRIX_SCAN_RATE 1
+#define CONSOLE_ENABLE 1
+
+#undef DEBOUNCE
+#define DEBOUNCE 1
+
 #define USE_SERIAL_PD2
 
 #define FORCE_NKRO
 
+#define USB_POLLING_INTERVAL_MS 1
+
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
-#undef RGBLED_NUM
+// #undef RGBLED_NUM
 // #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
+// #define RGBLIGHT_EFFECT_BREATHING
+// #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// #define RGBLIGHT_EFFECT_SNAKE
 // #define RGBLED_NUM 27
-#define RGBLED_NUM 9
-#define RGBLED_SPLIT {8, 1}
+// #define RGBLED_NUM 9
+// #define RGBLED_SPLIT {8, 1}
 // #define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+// #define RGBLIGHT_HUE_STEP 10
+// #define RGBLIGHT_SAT_STEP 17
+// #define RGBLIGHT_VAL_STEP 17
 
-#define RGBLIGHT_LAYERS
+// #define RGBLIGHT_LAYERS
 
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_SPLIT
+// #define RGBLIGHT_SLEEP
+// #define RGBLIGHT_SPLIT
 
 // from https://www.reddit.com/r/olkb/comments/72u8ou/qmk_mouse_keys_rock/
 #define MOUSEKEY_INTERVAL 16

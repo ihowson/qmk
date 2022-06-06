@@ -2,32 +2,35 @@
 
 #include QMK_KEYBOARD_H
 
+#define LAYER_QWERTY 0
+#define LAYER_RAISE 1
+#define LAYER_MOUSE 2
+#define LAYER_LOWER 3
 
-#define _QWERTY 0
-#define _RAISE 1
-#define _MOUSE 2
-#define _LOWER 3
+enum custom_keycodes {
+    REPEAT_COMMAND = SAFE_RANGE,
+};
 
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+#define RAISE MO(LAYER_RAISE)
+#define LOWER MO(LAYER_LOWER)
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   // If console is enabled, it will print the matrix position and status of each key pressed
-// #ifdef CONSOLE_ENABLE
-//     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-// #endif 
-//   return true;
-// }
-
-
-// enum {
-//   TD_9,
-//   TD_0
-// };
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case REPEAT_COMMAND:
+        if (record->event.pressed) {
+            // up-arrow, enter -- repeats last command in shell
+            SEND_STRING(SS_TAP(X_UP)"\n");
+        } else {
+            // when keycode is released
+        }
+        break;
+    }
+    return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_5x6(
+  [LAYER_QWERTY] = LAYOUT_5x6(
      KC_GRAVE,    KC_1,        KC_2,               KC_3,     KC_4,    KC_5,          KC_6,     KC_7,                   KC_8,      KC_9,      KC_0,  KC_EQUAL,
        KC_TAB,    KC_Q,        KC_W,               KC_E,     KC_R,    KC_T,          KC_Y,     KC_U,                   KC_I,      KC_O,      KC_P, KC_BSLASH,
     KC_ESCAPE,    KC_A,        KC_S,               KC_D,     KC_F,    KC_G,          KC_H,     KC_J,                   KC_K,      KC_L, KC_SCOLON,  KC_QUOTE,
@@ -39,18 +42,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        KC_LGUI, KC_LALT,              KC_ENTER, KC_SPACE  // pos3, pos4
   ),
 
-  [_RAISE] = LAYOUT_5x6(
+  [LAYER_RAISE] = LAYOUT_5x6(
         KC_F12,   KC_F1,       KC_F2,   KC_F3,      KC_F4,   KC_F5,                          KC_F6,             KC_F7,       KC_F8,       KC_F9,      KC_F10,    KC_F11,
        _______,    KC_1,        KC_2,    KC_3,       KC_4,    KC_5,                           KC_6,              KC_7,        KC_8,        KC_9,        KC_0,  KC__MUTE,
-       _______, _______, DF(_QWERTY), DF(_MOUSE), MO(_LOWER), KC_BRIGHTNESS_UP,               KC_LEFT,           KC_DOWN,       KC_UP,    KC_RIGHT, KC__VOLDOWN, KC__VOLUP,
-       _______, _______,     _______, _______,    _______, KC_BRIGHTNESS_DOWN,   SGUI(KC_LBRACKET), SGUI(KC_RBRACKET), KC_LBRACKET, KC_RBRACKET,       RESET,   _______,
+       _______, _______, DF(LAYER_QWERTY), DF(LAYER_MOUSE), MO(LAYER_LOWER), KC_BRIGHTNESS_UP,               KC_LEFT,           KC_DOWN,       KC_UP,    KC_RIGHT, KC__VOLDOWN, KC__VOLUP,
+       _______, _______,     KC_HOME, _______,    KC_END, KC_BRIGHTNESS_DOWN,   SGUI(KC_LBRACKET), SGUI(KC_RBRACKET), KC_LBRACKET, KC_RBRACKET,       RESET,   _______,
                              _______, _______,                                                              KC_PGDOWN,     KC_PGUP,
                                                       _______, _______,              _______, _______,
-                                                      _______, _______,              RGB_HUI, RGB_MODE_FORWARD,
-                                                      _______, RGB_SAI,              RGB_TOG, RGB_VAI
+                                                      _______, RGB_MODE_FORWARD,     _______, REPEAT_COMMAND,
+                                                      RGB_HUI, RGB_SAI,              RGB_TOG, RGB_VAI
   ),
 
-  [_LOWER] = LAYOUT_5x6(
+  [LAYER_LOWER] = LAYOUT_5x6(
      KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                        KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
      _______,_______,_______,_______,_______,KC_LBRC,                        KC_RBRC, KC_7 , KC_8 , KC_9 ,_______,KC_PLUS,
      _______,KC_HOME,KC_PGUP,KC_PGDN,KC_END ,KC_LPRN,                        KC_RPRN, KC_4 , KC_5 , KC_6 ,KC_MINS,KC_PIPE,
@@ -62,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_MOUSE] = LAYOUT_5x6(
+  [LAYER_MOUSE] = LAYOUT_5x6(
      _______,     _______,     _______,       _______,       _______,        _______,                        _______,    _______,    _______,  _______,     _______, _______,
      _______,     _______,     _______,       KC_MS_WH_UP,   _______,        _______,                        _______,    _______,    KC_MS_UP, _______,     _______, _______,
-     DF(_QWERTY), DF(_QWERTY), KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, _______,                        KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, _______, _______,
+     DF(LAYER_QWERTY), DF(LAYER_QWERTY), KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, _______,                        KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, _______, _______,
      _______,     _______,     KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,   _______,                        _______,    _______,    _______,  _______,     _______ ,_______,
                                                  _______,    _______,            _______,    _______,
                                                  _______,    _______,            _______,    _______,

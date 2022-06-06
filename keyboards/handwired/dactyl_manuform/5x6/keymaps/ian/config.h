@@ -37,7 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // WS2812 RGB LED strip input and number of LEDs
 #undef RGBLED_NUM
 #define RGBLED_NUM 46
-#define RGBLIGHT_LIMIT_VAL 255
+// #define RGBLIGHT_LIMIT_VAL 255
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 180
 #define RGBLIGHT_ANIMATIONS
 // #define RGBLIGHT_EFFECT_CHRISTMAS
 // #define RGBLIGHT_EFFECT_RAINBOW_MOOD

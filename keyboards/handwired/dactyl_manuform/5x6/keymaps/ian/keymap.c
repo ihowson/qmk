@@ -46,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12,   KC_F1,       KC_F2,   KC_F3,      KC_F4,   KC_F5,                          KC_F6,             KC_F7,       KC_F8,       KC_F9,      KC_F10,    KC_F11,
        _______,    KC_1,        KC_2,    KC_3,       KC_4,    KC_5,                           KC_6,              KC_7,        KC_8,        KC_9,        KC_0,  KC__MUTE,
        _______, _______, DF(LAYER_QWERTY), DF(LAYER_MOUSE), MO(LAYER_LOWER), KC_BRIGHTNESS_UP,               KC_LEFT,           KC_DOWN,       KC_UP,    KC_RIGHT, KC__VOLDOWN, KC__VOLUP,
-       _______, _______,     KC_HOME, _______,    KC_END, KC_BRIGHTNESS_DOWN,   SGUI(KC_LBRACKET), SGUI(KC_RBRACKET), KC_LBRACKET, KC_RBRACKET,       RESET,   _______,
+       _______, _______,     KC_HOME, RGB_HUI,    KC_END, KC_BRIGHTNESS_DOWN,   SGUI(KC_LBRACKET), SGUI(KC_RBRACKET), KC_LBRACKET, KC_RBRACKET,       RESET,   _______,
                              _______, _______,                                                              KC_PGDOWN,     KC_PGUP,
                                                       _______, _______,              _______, _______,
                                                       _______, RGB_MODE_FORWARD,     _______, REPEAT_COMMAND,
-                                                      RGB_HUI, RGB_SAI,              RGB_TOG, RGB_VAI
+                                                      _______, RGB_SAI,              RGB_TOG, RGB_VAI
   ),
 
   [LAYER_LOWER] = LAYOUT_5x6(
